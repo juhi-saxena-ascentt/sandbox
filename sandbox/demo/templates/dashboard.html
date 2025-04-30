@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASCENTT SANDBOX</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --accent: #ec4899;
+      --dark: #1e293b;
+      --light: #f8fafc;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+      color: var(--light);
+      min-height: 100vh;
+    }
+    
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.5rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-right: 2rem;
+    }
+    
+    .navbar {
+      background-color: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .canvas-container {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(99, 102, 241, 0.18);
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .app-box {
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 12px;
+      box-shadow: inset 0 4px 24px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      min-height: 500px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .app-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+      animation: pulse 15s infinite linear;
+      z-index: -1;
+    }
+    
+    .dashboard-header {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      padding-bottom: 1rem;
+    }
+    
+    .nav-link {
+      color: #94a3b8;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      margin: 0 0.25rem;
+    }
+    
+    .nav-link:hover {
+      color: var(--light);
+      background: rgba(99, 102, 241, 0.1);
+    }
+    
+    .nav-link.active {
+      color: var(--light);
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+      border-left: 3px solid var(--primary);
+    }
+    
+    .user-welcome {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .stat-label {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    .nav-button {
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary-custom {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border: none;
+      color: white;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+    
+    .btn-primary-custom:hover {
+      box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ASCENTT SANDBOX</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="#"><i class="fas fa-cog"></i> Settings</a> -->
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <button class="btn nav-button me-2"><i class="fas fa-bell"></i></button>
+          <button class="btn btn-primary-custom nav-button">{{ request.user.username }} <i class="fas fa-user ms-2"></i></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container-fluid">
+    <!-- Canvas Container -->
+    <div class="canvas-container">
+      <!-- Content starts directly with app box -->
+      
+      <!-- App Box Container -->
+      <div class="app-box">
+        <h4 class="mb-4"><i class="fas fa-rocket me-2"></i> Application Content</h4>
+        <p class="text-light-emphasis">Your application content will appear here. This is the main sandbox area where your projects and applications will run.</p>
+        
+        <!-- Placeholder content for demo purposes -->
+        <div class="d-flex justify-content-center align-items-center" style="height: 300px;">
+          <div class="text-center">
+            <div style="font-size: 5rem; opacity: 0.2;">
+              <i class="fas fa-code"></i>
+            </div>
+            <p class="mt-3 text-light-emphasis">Select a project to start working</p>
+            <button class="btn btn-primary-custom mt-2">Launch Sandbox</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
